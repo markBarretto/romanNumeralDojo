@@ -45,4 +45,34 @@ describe("Roman Numerals", function() {
   	expect(output).toBe('IV');
   });
   
+  it("Number 9 should equal to IX", function(){
+  	var output = romanNumeral.convert(9);
+  	expect(output).toBe('IX');
+  });
+  
+  it("Number 10 should equal to X", function(){
+  	var output = romanNumeral.convert(10);
+  	expect(output).toBe('X');
+  });
+  
+  it("Number 50 should equal to L", function(){
+  	var output = romanNumeral.convert(50);
+  	expect(output).toBe('L');
+  });
+  
+  it("Number 100 should equal to C", function(){
+  	var output = romanNumeral.convert(100);
+  	expect(output).toBe('C');
+  });
+  
+  
+  it("Number 500 should equal to D", function(){
+  	var output = romanNumeral.convert(500);
+  	expect(output).toBe('D');
+  });
+  
+  it("Number 1000 should equal to M", function(){
+  	var output = romanNumeral.convert(1000);
+  	expect(output).toBe('M');
+  });
 });
