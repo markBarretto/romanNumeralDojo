@@ -75,4 +75,15 @@ describe("Roman Numerals", function() {
   	var output = romanNumeral.convert(1000);
   	expect(output).toBe('M');
   });
+  
+  it("Number 20 should equal to XX", function() {
+  	var output = romanNumeral.convert(20);
+  	expect(output).toBe('XX');
+  });
+  
+  it("Number 29 should equal to XXIX", function() {
+  	var output = romanNumeral.convert(29);
+  	expect(output).toBe('XXIX');
+  });
+  
 });

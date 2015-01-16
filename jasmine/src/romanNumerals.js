@@ -11,44 +11,50 @@ var RomanNumerals = function() {
 	};
 }
 
+RomanNumerals.prototype.referenceCharacter = function(input){
+	var t = this.values;
+	for(value in t){
+		if(t[value] == input){
+			return Number(value);
+		}
+	}
+	
+}
 
 RomanNumerals.prototype.convert = function(input) {
 	var result = "";
 	var counter = input;
 	
-	var characters = Object.keys(this.values);
-	/*
-	for (var i = 0; i<characters.length; i++){
-		
-		var thisNumber = characters[i];
-		var nextNumber = characters[i]+1;
-		console.log(thisNumber);
-		if(counter>=(thisNumber - nextNumber)){ 		
-			if(counter == thisNumber - nextNumber){
-				result += this.values[nextNumber];
-			}
-			result += this.values[thisNumber];
-			counter -= thisNumber;
-			for (var ii=thisNumber; ii<=counter; ii+=thisNumber )
-			{
-				result = result + this.values[nextNumber];
-			}
-		} 
-		
+	var characters = Object.keys(this.values);	
+	
+	var romanNumeralChar = "I";
+	
+	var i = 0;
+
+	for(character in characters){
+		i++;
+		if(i%2){ // odd
+			
+		} else { // even
+			
+		}
 	}
-	*/
-	
-	
-	
-	
-	if(counter>=(5 - 1) && counter <= 10){ 		
-		if(counter == 5 - 1 || counter == 9){
+		
+	if (counter>=10 && counter<=30) {
+		romanNumeralChar = "X";
+		//decimalNumber = 10;
+		this.referenceCharacter(romanNumeralChar);
+		result += "X";
+		counter -= 10;
+	} else if (counter>=(5-1) && counter <= 10 - 1){ 		
+		romanNumeralChar = 'I';
+		if(counter == 5-1 || counter == 10-1){
 			result += "I";
 		}
-		if (counter >= 9)
+		if (counter == 10-1)
 		{
 			result += "X";
-			counter -=10;
+			counter -= 10;
 		}
 		else
 		{
@@ -57,17 +63,46 @@ RomanNumerals.prototype.convert = function(input) {
 		}
 		
 	}
+	
+	/*else if (counter>=10 && counter<=30) {
+		romanNumeralChar = "X";
+		//decimalNumber = 10;
+		this.referenceCharacter(romanNumeralChar);
+		result += "X";
+		counter -= 10;
+	}
+	
+	*/
 	else if (counter>10 && counter<=50) {
+		romanNumeralChar = "L";
 		result += "L";
 		counter -=50;
 	}
 	
-	
-	for (var i=1; i<=counter; i++ )
-	{
-		result = result + "I";
+	else if (counter>50 && counter<=100) {
+		romanNumeralChar = "C";
+		result += "C";
+		counter -=100;
 	}
 	
+	else if (counter>100 && counter<=500) {
+		romanNumeralChar = "D";
+		result += "D";
+		counter -=500;
+	}
+	
+	else if (counter>500 && counter<=1000) {
+		romanNumeralChar = "M";
+		result += "M";
+		counter -=1000;
+	}
+	
+	
+	
+	for (var i=1*this.referenceCharacter(romanNumeralChar); i<=counter; i++*this.referenceCharacter(romanNumeralChar)){
+		result = result + romanNumeralChar;
+	}
+
 	return result;
 }
 
