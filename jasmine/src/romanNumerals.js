@@ -21,88 +21,73 @@ RomanNumerals.prototype.referenceCharacter = function(input){
 	
 }
 
+RomanNumerals.prototype.getPlaceValue = function(input){
+	var counter = input;
+	var placeValue = {'I': 0, 'X':0, 'C':0, 'M': 0};
+	
+	while(counter > 0){
+		if(counter >= 1000){
+			counter = counter - 1000;
+			placeValue['M']++;
+		} else if(counter >= 100){
+			counter = counter - 100;
+			placeValue['C']++;	
+		} else if(counter >= 10){
+			counter = counter - 10;
+			placeValue['X']++;	
+		} else if(counter >= 1){
+			counter = counter - 1;
+			placeValue['I']++;	
+		}
+	}
+	
+	return placeValue;
+}
+
 RomanNumerals.prototype.convert = function(input) {
 	var result = "";
-	var counter = input;
+		
+	var placeValue = this.getPlaceValue(input);
 	
 	var characters = Object.keys(this.values);	
 	
 	var romanNumeralChar = "I";
 	
-	var i = 0;
-
-	for(character in characters){
-		i++;
-		if(i%2){ // odd
-			
-		} else { // even
-			
-		}
-	}
 		
-	if (counter>=10 && counter<=30) {
-		romanNumeralChar = "X";
-		//decimalNumber = 10;
-		this.referenceCharacter(romanNumeralChar);
-		result += "X";
-		counter -= 10;
-	} else if (counter>=(5-1) && counter <= 10 - 1){ 		
-		romanNumeralChar = 'I';
-		if(counter == 5-1 || counter == 10-1){
-			result += "I";
+	for(place in placeValue){
+		var partialResult = '';
+		var counter = placeValue[place];
+		var romanNumeralChar = place;
+		var halfChar = 'V';
+		var fullChar = 'X';
+		
+		var i = 0;
+		
+		if (counter>=(5-1) && counter <= 10 - 1){ 		
+
+			if(counter == 5-1 || counter == 10-1){
+				result += romanNumeralChar;
+			}
+			if (counter == 10-1)
+			{
+				result += fullChar;
+				counter -= 10;
+			}
+			else
+			{
+				result += halfChar;
+				counter -=5;
+			}
+		
 		}
-		if (counter == 10-1)
-		{
-			result += "X";
-			counter -= 10;
-		}
-		else
-		{
-			result += "V";
-			counter -=5;
+	
+		for (var i=1*this.referenceCharacter(romanNumeralChar); i<=counter; i++*this.referenceCharacter(romanNumeralChar)){
+			partialResult = partialResult + romanNumeralChar;
 		}
 		
+		result += partialResult;
 	}
 	
-	/*else if (counter>=10 && counter<=30) {
-		romanNumeralChar = "X";
-		//decimalNumber = 10;
-		this.referenceCharacter(romanNumeralChar);
-		result += "X";
-		counter -= 10;
-	}
-	
-	*/
-	else if (counter>10 && counter<=50) {
-		romanNumeralChar = "L";
-		result += "L";
-		counter -=50;
-	}
-	
-	else if (counter>50 && counter<=100) {
-		romanNumeralChar = "C";
-		result += "C";
-		counter -=100;
-	}
-	
-	else if (counter>100 && counter<=500) {
-		romanNumeralChar = "D";
-		result += "D";
-		counter -=500;
-	}
-	
-	else if (counter>500 && counter<=1000) {
-		romanNumeralChar = "M";
-		result += "M";
-		counter -=1000;
-	}
-	
-	
-	
-	for (var i=1*this.referenceCharacter(romanNumeralChar); i<=counter; i++*this.referenceCharacter(romanNumeralChar)){
-		result = result + romanNumeralChar;
-	}
-
 	return result;
 }
 
